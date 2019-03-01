@@ -4,6 +4,7 @@ let grid;
 let cols;
 let rows;
 let resolution = 20;
+let flag = false;
 function setup() {
   createCanvas(600, 400);
   frameRate(20);
@@ -13,9 +14,45 @@ function setup() {
   button.position(10, 500);
   button.style("font-size", "15px");
   button.mousePressed(resetSketch);
+  var play = createButton("Pause/Play");
+  play.position(150, 500);
+  play.style("font-size", "15px");
+  play.mousePressed(flip);
+
+  var step = createButton("Step");
+  step.position(300, 500);
+  step.style("font-size", "15px");
+  step.mousePressed(stepThrough);
+
+  var save = createButton("Save State");
+  save.position(425, 500);
+  save.style("font-size", "15px");
+  save.mousePressed(saveState);
+}
+
+function saveState() {
+  alert("Not yet implemented!");
+}
+
+function stepThrough() {
+  if (!flag) {
+    alert("Pause the simulation before stepping through");
+  } else {
+    draw();
+  }
+}
+function flip() {
+  if (!flag) {
+    noLoop();
+  } else {
+    loop();
+  }
+  flag = !flag;
 }
 
 function resetSketch() {
+  loop();
+  flag = false;
   cols = width / resolution;
   rows = height / resolution;
   grid = make2DArray(cols, rows);
